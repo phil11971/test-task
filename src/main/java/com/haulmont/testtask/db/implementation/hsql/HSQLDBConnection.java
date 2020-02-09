@@ -31,13 +31,9 @@ public class HSQLDBConnection {
         return connection;
     }
 
-    public static void closeConnection() throws SQLException  {
-        if (connection != null) connection.close();
-    }
-
     private static void initDb() throws DbConnectionException {
-        executeSqlScript(HSQLDB_CREATEDBSCRIPT_PATH);
-        executeSqlScript(HSQLDB_INSERTSCRIPT_PATH);
+        executeSqlScript(CREATEDB_SCRIPT_PATH);
+        executeSqlScript(INSERT_SCRIPT_PATH);
     }
 
     private static void executeSqlScript(String path) throws DbConnectionException {

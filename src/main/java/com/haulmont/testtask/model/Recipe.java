@@ -15,13 +15,13 @@ public class Recipe {
         this.patientId = patientId;
     }
 
-    public Recipe(long doctorId, long patientId, String desc, Date creationDate, int validity, Priority priority) {
+    public Recipe(long doctorId, long patientId, String desc, Date creationDate, int validity, String priority) {
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.desc = desc;
         this.creationDate = creationDate;
         this.validity = validity;
-        this.priority = priority;
+        this.priority = Priority.valueOf(priority);
     }
 
     public long getDoctorId() {
@@ -64,8 +64,8 @@ public class Recipe {
         this.validity = validity;
     }
 
-    public Priority getPriority() {
-        return priority;
+    public String getPriority() {
+        return priority.name();
     }
 
     public void setPriority(Priority priority) {
@@ -74,7 +74,7 @@ public class Recipe {
 }
 
 enum Priority{
-    NORMAL,
-    CITO,
-    STATIM
+    Normal,
+    Cito,
+    Statim
 }

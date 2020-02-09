@@ -6,7 +6,7 @@ import com.haulmont.testtask.model.Recipe;
 import java.util.List;
 
 public interface RecipeDao {
-    Long insert(Recipe recipe) throws DaoException;
+    void insert(Recipe recipe) throws DaoException;
 
     void delete(Long id) throws DaoException;
 
