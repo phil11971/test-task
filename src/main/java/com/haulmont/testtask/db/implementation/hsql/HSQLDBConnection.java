@@ -17,7 +17,7 @@ public class HSQLDBConnection {
     private static void buildConnection() throws DriverNotFoundException, DbConnectionException {
         try {
             Class.forName(HSQLDB_DRIVER);
-            connection = DriverManager.getConnection(HSQLDB_URL);
+            connection = DriverManager.getConnection(HSQLDB_URL, HSQLDB_USERNAME, HSQLDB_PASSWORD);
             initDb();
         } catch (ClassNotFoundException e) {
             throw new DriverNotFoundException(HSQLDBErrorConstants.DRIVER_ERROR);
