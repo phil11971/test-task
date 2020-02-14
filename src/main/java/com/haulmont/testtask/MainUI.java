@@ -11,17 +11,12 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class MainUI extends UI {
-    private MenuForm menuForm;
-    private Navigator navigator;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        menuForm = new MenuForm();
-        navigator = new Navigator(this, menuForm);
+        MenuForm menuForm = new MenuForm(this);
 
-        navigator.addView("patient", new PatientForm());
-        navigator.addView("doctor", new DoctorForm());
-        navigator.addView("recipe", new RecipeForm());
+
         setContent(menuForm);
     }
 }
