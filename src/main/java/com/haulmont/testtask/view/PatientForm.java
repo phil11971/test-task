@@ -5,7 +5,6 @@ import com.haulmont.testtask.service.PatientService;
 import com.haulmont.testtask.view.design.PatientFormDesign;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.Grid;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class PatientForm extends PatientFormDesign implements View {
     private PatientService service = PatientService.getInstance();
 
     public PatientForm() {
-        grid = new Grid<>(Patient.class);
+        //add.addClickListener(event -> );
     }
 
     public void updateGrid() {

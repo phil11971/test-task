@@ -17,56 +17,25 @@
    </vaadin-horizontal-layout>
    <vaadin-css-layout style-name="content" size-full :expand>
     <vaadin-css-layout style-name="list" size-full>
-     <vaadin-grid size-full _id="list">
+     <vaadin-grid caption="Doctors" size-full data-item-type="com.haulmont.testtask.model.Doctor" _id="grid">
       <table>
        <colgroup>
-        <col column-id="project" sortable>
-        <col column-id="status" sortable>
+        <col column-id="id" sortable>
+        <col column-id="firstName" sortable>
+        <col column-id="lastName" sortable>
+        <col column-id="middleName" sortable>
+        <col column-id="spec" sortable>
        </colgroup>
        <thead>
         <tr default>
-         <th plain-text column-ids="project">Project</th>
-         <th plain-text column-ids="status">Status</th>
+         <th plain-text column-ids="id">Id</th>
+         <th plain-text column-ids="firstName">FirstName</th>
+         <th plain-text column-ids="lastName">LastName</th>
+         <th plain-text column-ids="middleName">MiddleName</th>
+         <th plain-text column-ids="spec">Spec</th>
         </tr>
        </thead>
-       <tbody>
-        <tr item="project1">
-         <td>Customer Project 1</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project2">
-         <td>Customer Project 2</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project3">
-         <td>Customer Project 3</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project4">
-         <td>Customer Project 4</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project5">
-         <td>Customer Project 5</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project6">
-         <td>Customer Project 6</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project7">
-         <td>Customer Project 7</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project8">
-         <td>Customer Project 8</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project9">
-         <td>Customer Project 9</td>
-         <td>OK</td>
-        </tr>
-       </tbody>
+       <tbody></tbody>
       </table>
      </vaadin-grid>
     </vaadin-css-layout>

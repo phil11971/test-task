@@ -1,7 +1,6 @@
 package com.haulmont.testtask.db.implementation.hsql.dao;
 
 import com.haulmont.testtask.db.abstraction.dao.PatientDao;
-import com.haulmont.testtask.model.Doctor;
 import com.haulmont.testtask.model.Patient;
 import com.haulmont.testtask.db.implementation.hsql.HSQLDBConnection;
 import com.haulmont.testtask.db.implementation.hsql.constant.*;
@@ -11,7 +10,7 @@ import java.sql.*;
 import java.util.*;
 
 public class HSQLDBPatientDao implements PatientDao {
-    private Connection connection;
+    private static Connection connection;
 
     public HSQLDBPatientDao() throws DaoException {
         try {

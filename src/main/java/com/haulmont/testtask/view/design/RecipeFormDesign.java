@@ -23,7 +23,7 @@ import com.vaadin.ui.TextArea;
 public class RecipeFormDesign extends VerticalLayout {
     protected TextField search;
     protected Button add;
-    protected Grid list;
+    protected Grid<com.haulmont.testtask.model.Recipe> grid;
     protected TextField firstName;
     protected TextField lastName;
     protected TextField jobTitle;

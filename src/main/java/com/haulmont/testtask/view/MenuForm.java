@@ -1,6 +1,5 @@
 package com.haulmont.testtask.view;
 
-import com.haulmont.testtask.MainUI;
 import com.haulmont.testtask.view.design.MenuFormDesign;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
@@ -14,16 +13,15 @@ public class MenuForm extends MenuFormDesign implements View {
     public MenuForm(UI ui) {
         this.ui = ui;
         navigator = new Navigator(ui, this);
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         navigator.addView("patient", PatientForm.class);
         navigator.addView("doctor", DoctorForm.class);
         navigator.addView("recipe", RecipeForm.class);
         patientBtn.addClickListener(event -> navigator.navigateTo("patient"));
         doctorBtn.addClickListener(event -> navigator.navigateTo("doctor"));
         recipeBtn.addClickListener(event -> navigator.navigateTo("recipe"));
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-
     }
 }

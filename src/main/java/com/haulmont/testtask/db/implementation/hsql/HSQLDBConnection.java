@@ -31,35 +31,41 @@ public class HSQLDBConnection {
         return connection;
     }
 
-    private static void initDb() throws DbConnectionException {
-        executeSqlScript(CREATEDB_SCRIPT_PATH);
-        executeSqlScript(INSERT_SCRIPT_PATH);
+    private static void initDb() throws SQLException, DbConnectionException {
+        if (!tableExists(TABLE_DOCTOR) || !tableExists(TABLE_PATIENT) || !tableExists(TABLE_RECIPE)) {
+            executeSqlStartScript(CREATEDB_SCRIPT_PATH);
+            executeSqlStartScript(INSERT_SCRIPT_PATH);
+        }
     }
 
-    private static void executeSqlScript(String path) throws DbConnectionException {
+    private static boolean tableExists(String tableName) throws SQLException {
+        boolean isExists = false;
+        try (ResultSet rs = connection.getMetaData().getTables(null, null, tableName, null)) {
+            while (rs.next()) {
+                String table_name = rs.getString("TABLE_NAME");
+                if (table_name != null && table_name.equals(tableName)) {
+                    isExists = true;
+                    break;
+                }
+            }
+        }
+        return isExists;
+    }
+
+    private static void executeSqlStartScript(String path) throws DbConnectionException {
         String delimiter = ";";
         Scanner scanner;
         try {
-            System.out.println(System.getProperty("user.dir"));
-            scanner = new Scanner(new FileInputStream(path), "UTF8").useDelimiter(delimiter);
+            scanner = new Scanner(new FileInputStream(path)).useDelimiter(delimiter);
             Statement statement = null;
-            try {
-                while (scanner.hasNext()) {
-                    String scriptStatement = scanner.next() + delimiter;
-                    System.out.println(scriptStatement);
-
+            while (scanner.hasNext()) {
+                String scriptStatement = scanner.next() + delimiter;
+                try {
                     statement = connection.createStatement();
-                    statement.addBatch(scriptStatement);
-                }
-                scanner.close();
-                statement.executeBatch();
-                System.out.println("executed batch");
-
-            }
-            catch (SQLException e) {
+                    statement.execute(scriptStatement);
+                } catch (SQLException e) {
                     throw new DbConnectionException(HSQLDBErrorConstants.STATEMENT_ERROR);
-            }
-            finally {
+                } finally {
                     if (statement != null) {
                         try {
                             statement.close();
@@ -67,8 +73,10 @@ public class HSQLDBConnection {
                             throw new DbConnectionException(HSQLDBErrorConstants.STATEMENT_ERROR);
                         }
                     }
+                    statement = null;
+                }
             }
-
+            scanner.close();
         } catch (FileNotFoundException | DbConnectionException e) {
             throw new DbConnectionException(HSQLDBErrorConstants.SCRIPT_ERROR);
         }

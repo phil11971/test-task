@@ -23,7 +23,7 @@ import com.vaadin.ui.TextArea;
 public class DoctorFormDesign extends VerticalLayout {
     protected TextField search;
     protected Button add;
-    protected Grid list;
+    protected Grid<com.haulmont.testtask.model.Doctor> grid;
     protected TextField firstName;
     protected TextField lastName;
     protected TextField jobTitle;
