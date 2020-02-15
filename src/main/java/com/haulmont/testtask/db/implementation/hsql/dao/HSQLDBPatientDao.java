@@ -11,18 +11,25 @@ import java.sql.*;
 import java.util.*;
 
 public class HSQLDBPatientDao implements PatientDao {
+    private Connection connection;
 
-    public HSQLDBPatientDao() throws DaoException {}
+    public HSQLDBPatientDao() throws DaoException {
+        try {
+            connection = HSQLDBConnection.getConnection();
+        } catch (DriverNotFoundException | DbConnectionException e) {
+            throw new DaoException(e.getMessage());
+        }
+    }
 
     @Override
     public Long insert(Patient patient) throws DaoException {
-        String sql = "INSERT INTO " + HSQLDBConstants.TABLE_PATIENT + " ("
+        try {
+            String sql = "INSERT INTO " + HSQLDBConstants.TABLE_PATIENT + " ("
                 + HSQLDBConstants.TABLE_PATIENT_LAST_NAME + ", "
                 + HSQLDBConstants.TABLE_PATIENT_FIRST_NAME + ", "
                 + HSQLDBConstants.TABLE_PATIENT_MIDDLE_NAME + ", "
                 + HSQLDBConstants.TABLE_PATIENT_PHONE + ", "
                 + "VALUES (?,?,?,?);";
-        try(Connection connection = HSQLDBConnection.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, patient.getLastName());
             preparedStatement.setString(2, patient.getFirstName());
@@ -32,9 +39,6 @@ public class HSQLDBPatientDao implements PatientDao {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             return resultSet.next() ? resultSet.getLong(1) : 0;
         }
-        catch (DriverNotFoundException | DbConnectionException e) {
-            throw new DaoException(e.getMessage());
-        }
         catch (SQLException e) {
             throw new DaoException(HSQLDBErrorConstants.INSERT_ERROR + e.getMessage());
         }
@@ -42,15 +46,12 @@ public class HSQLDBPatientDao implements PatientDao {
 
     @Override
     public void delete(Long id) throws DaoException {
-        String sql = "DELETE FROM " + HSQLDBConstants.TABLE_PATIENT
+        try {
+            String sql = "DELETE FROM " + HSQLDBConstants.TABLE_PATIENT
                 + " WHERE " + HSQLDBConstants.TABLE_PATIENT_ID + " = ?;";
-        try(Connection connection = HSQLDBConnection.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-        }
-        catch (DriverNotFoundException | DbConnectionException e) {
-            throw new DaoException(e.getMessage());
         }
         catch (SQLException e) {
             throw new DaoException(HSQLDBErrorConstants.DELETE_ERROR + e.getMessage());
@@ -59,13 +60,13 @@ public class HSQLDBPatientDao implements PatientDao {
 
     @Override
     public void update(Patient patient) throws DaoException {
-        String sql = "UPDATE " + HSQLDBConstants.TABLE_PATIENT + " SET "
+        try {
+            String sql = "UPDATE " + HSQLDBConstants.TABLE_PATIENT + " SET "
                 + HSQLDBConstants.TABLE_PATIENT_LAST_NAME + " = ?, "
                 + HSQLDBConstants.TABLE_PATIENT_FIRST_NAME + " = ?, "
                 + HSQLDBConstants.TABLE_PATIENT_MIDDLE_NAME + " = ?, "
                 + HSQLDBConstants.TABLE_PATIENT_PHONE + " = ?, "
                 + "WHERE " + HSQLDBConstants.TABLE_PATIENT_ID + " = ?;";
-        try(Connection connection = HSQLDBConnection.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, patient.getLastName());
             preparedStatement.setString(2, patient.getFirstName());
@@ -74,9 +75,6 @@ public class HSQLDBPatientDao implements PatientDao {
             preparedStatement.setLong(5, patient.getId());
             preparedStatement.executeUpdate();
         }
-        catch (DriverNotFoundException | DbConnectionException e) {
-            throw new DaoException(e.getMessage());
-        }
         catch (SQLException e) {
             throw new DaoException(HSQLDBErrorConstants.UPDATE_ERROR + e.getMessage());
         }
@@ -84,9 +82,9 @@ public class HSQLDBPatientDao implements PatientDao {
 
     @Override
     public List<Patient> getAll() throws DaoException {
-        List<Patient> patients = new ArrayList<>();
-        String sql = "SELECT * FROM " + HSQLDBConstants.TABLE_PATIENT + ";";
-        try(Connection connection = HSQLDBConnection.getConnection()) {
+        try {
+            List<Patient> patients = new ArrayList<>();
+            String sql = "SELECT * FROM " + HSQLDBConstants.TABLE_PATIENT + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -98,9 +96,6 @@ public class HSQLDBPatientDao implements PatientDao {
                 patients.add(patient);
             }
             return patients;
-        }
-        catch (DriverNotFoundException | DbConnectionException e) {
-            throw new DaoException(e.getMessage());
         }
         catch (SQLException e) {
             throw new DaoException(HSQLDBErrorConstants.SELECT_ERROR + e.getMessage());

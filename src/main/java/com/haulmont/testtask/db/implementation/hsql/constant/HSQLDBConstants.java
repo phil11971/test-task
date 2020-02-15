@@ -7,8 +7,8 @@ public class HSQLDBConstants {
             HSQLDB_USERNAME = "SA",
             HSQLDB_PASSWORD = "",
 
-            CREATEDB_SCRIPT_PATH = "data/script/createDB",
-            INSERT_SCRIPT_PATH = "data/script/insert",
+            CREATEDB_SCRIPT_PATH = "data/script/createDB.sql",
+            INSERT_SCRIPT_PATH = "data/script/insert.sql",
 
             TABLE_DOCTOR = "DOCTOR",
             TABLE_DOCTOR_ID = "DOCTORID",
@@ -25,7 +25,7 @@ public class HSQLDBConstants {
             TABLE_PATIENT_PHONE = "PHONE",
 
             TABLE_RECIPE = "RECIPE",
-            TABLE_RECIPE_DESC = "DESC",
+            TABLE_RECIPE_DESC = "DESCRIPTION",
             TABLE_RECIPE_CREATIONDATE = "CREATIONDATE",
             TABLE_RECIPE_VALIDITY = "VALIDITY",
             TABLE_RECIPE_PRIORITY = "PRIORITY";

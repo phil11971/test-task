@@ -4,6 +4,9 @@ import com.haulmont.testtask.db.abstraction.*;
 import com.haulmont.testtask.db.abstraction.dao.DoctorDao;
 import com.haulmont.testtask.db.abstraction.dao.PatientDao;
 import com.haulmont.testtask.db.abstraction.dao.RecipeDao;
+import com.haulmont.testtask.db.implementation.hsql.dao.HSQLDBDoctorDao;
+import com.haulmont.testtask.db.implementation.hsql.dao.HSQLDBPatientDao;
+import com.haulmont.testtask.db.implementation.hsql.dao.HSQLDBRecipeDao;
 import com.haulmont.testtask.exception.db.DaoException;
 
 public class HSQLDBDaoManager implements DaoManager {
@@ -25,16 +28,25 @@ public class HSQLDBDaoManager implements DaoManager {
 
     @Override
     public DoctorDao getDoctorDao() throws DaoException {
-        return null;
+        if (doctorDao == null) {
+            doctorDao = new HSQLDBDoctorDao();
+        }
+        return doctorDao;
     }
 
     @Override
     public PatientDao getPatientDao() throws DaoException {
-        return null;
+        if (patientDao == null) {
+            patientDao = new HSQLDBPatientDao();
+        }
+        return patientDao;
     }
 
     @Override
     public RecipeDao getRecipeDao() throws DaoException {
-        return null;
+        if (recipeDao == null) {
+            recipeDao = new HSQLDBRecipeDao();
+        }
+        return recipeDao;
     }
 }

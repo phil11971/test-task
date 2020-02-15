@@ -10,12 +10,18 @@ import java.sql.*;
 import java.util.*;
 
 public class HSQLDBRecipeDao implements RecipeDao {
+    private Connection connection;
 
-    public HSQLDBRecipeDao() throws DaoException {}
+    public HSQLDBRecipeDao() throws DaoException {try {
+        connection = HSQLDBConnection.getConnection();
+    } catch (DriverNotFoundException | DbConnectionException e) {
+        throw new DaoException(e.getMessage());
+    }}
 
     @Override
     public void insert(Recipe recipe) throws DaoException {
-        String sql = "INSERT INTO " + HSQLDBConstants.TABLE_RECIPE + " ("
+        try {
+            String sql = "INSERT INTO " + HSQLDBConstants.TABLE_RECIPE + " ("
                 + HSQLDBConstants.TABLE_DOCTOR_ID + ", "
                 + HSQLDBConstants.TABLE_PATIENT_ID + ", "
                 + HSQLDBConstants.TABLE_RECIPE_DESC + ", "
@@ -23,7 +29,6 @@ public class HSQLDBRecipeDao implements RecipeDao {
                 + HSQLDBConstants.TABLE_RECIPE_VALIDITY + ", "
                 + HSQLDBConstants.TABLE_RECIPE_PRIORITY + ", "
                 + "VALUES (?,?,?,?,?,?);";
-        try(Connection connection = HSQLDBConnection.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, recipe.getDoctorId());
             preparedStatement.setLong(2, recipe.getPatientId());
@@ -32,9 +37,6 @@ public class HSQLDBRecipeDao implements RecipeDao {
             preparedStatement.setInt(5, recipe.getValidity());
             preparedStatement.setString(6, recipe.getPriority());
             preparedStatement.executeUpdate();
-        }
-        catch (DriverNotFoundException | DbConnectionException e) {
-            throw new DaoException(e.getMessage());
         }
         catch (SQLException e) {
             throw new DaoException(HSQLDBErrorConstants.INSERT_ERROR + e.getMessage());
@@ -48,13 +50,13 @@ public class HSQLDBRecipeDao implements RecipeDao {
 
     @Override
     public void update(Recipe recipe) throws DaoException {
-        String sql = "UPDATE " + HSQLDBConstants.TABLE_RECIPE + " SET "
+        try {
+            String sql = "UPDATE " + HSQLDBConstants.TABLE_RECIPE + " SET "
                 + HSQLDBConstants.TABLE_RECIPE_DESC + " = ?, "
                 + HSQLDBConstants.TABLE_RECIPE_CREATIONDATE + " = ?, "
                 + HSQLDBConstants.TABLE_RECIPE_VALIDITY + " = ?, "
                 + HSQLDBConstants.TABLE_RECIPE_PRIORITY + " = ?, "
                 + "WHERE " + HSQLDBConstants.TABLE_DOCTOR_ID + " = ? AND" + HSQLDBConstants.TABLE_PATIENT_ID + " = ?;";
-        try(Connection connection = HSQLDBConnection.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, recipe.getDesc());
             preparedStatement.setDate(2, recipe.getCreationDate());
@@ -64,9 +66,6 @@ public class HSQLDBRecipeDao implements RecipeDao {
             preparedStatement.setLong(6, recipe.getPatientId());
             preparedStatement.executeUpdate();
         }
-        catch (DriverNotFoundException | DbConnectionException e) {
-            throw new DaoException(e.getMessage());
-        }
         catch (SQLException e) {
             throw new DaoException(HSQLDBErrorConstants.UPDATE_ERROR + e.getMessage());
         }
@@ -74,9 +73,9 @@ public class HSQLDBRecipeDao implements RecipeDao {
 
     @Override
     public List<Recipe> getAll() throws DaoException {
-        List<Recipe> recipes = new ArrayList<>();
-        String sql = "SELECT * FROM " + HSQLDBConstants.TABLE_RECIPE + ";";
-        try(Connection connection = HSQLDBConnection.getConnection()) {
+        try {
+            List<Recipe> recipes = new ArrayList<>();
+            String sql = "SELECT * FROM " + HSQLDBConstants.TABLE_RECIPE + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -89,9 +88,6 @@ public class HSQLDBRecipeDao implements RecipeDao {
                 recipes.add(recipe);
             }
             return recipes;
-        }
-        catch (DriverNotFoundException | DbConnectionException e) {
-            throw new DaoException(e.getMessage());
         }
         catch (SQLException e) {
             throw new DaoException(HSQLDBErrorConstants.SELECT_ERROR + e.getMessage());

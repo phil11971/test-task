@@ -40,16 +40,26 @@ public class HSQLDBConnection {
         String delimiter = ";";
         Scanner scanner;
         try {
-            scanner = new Scanner(new FileInputStream(path)).useDelimiter(delimiter);
+            System.out.println(System.getProperty("user.dir"));
+            scanner = new Scanner(new FileInputStream(path), "UTF8").useDelimiter(delimiter);
             Statement statement = null;
-            while (scanner.hasNext()) {
-                String scriptStatement = scanner.next() + delimiter;
-                try {
+            try {
+                while (scanner.hasNext()) {
+                    String scriptStatement = scanner.next() + delimiter;
+                    System.out.println(scriptStatement);
+
                     statement = connection.createStatement();
-                    statement.execute(scriptStatement);
-                } catch (SQLException e) {
+                    statement.addBatch(scriptStatement);
+                }
+                scanner.close();
+                statement.executeBatch();
+                System.out.println("executed batch");
+
+            }
+            catch (SQLException e) {
                     throw new DbConnectionException(HSQLDBErrorConstants.STATEMENT_ERROR);
-                } finally {
+            }
+            finally {
                     if (statement != null) {
                         try {
                             statement.close();
@@ -57,10 +67,8 @@ public class HSQLDBConnection {
                             throw new DbConnectionException(HSQLDBErrorConstants.STATEMENT_ERROR);
                         }
                     }
-                    statement = null;
-                }
             }
-            scanner.close();
+
         } catch (FileNotFoundException | DbConnectionException e) {
             throw new DbConnectionException(HSQLDBErrorConstants.SCRIPT_ERROR);
         }
