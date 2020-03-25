@@ -1,54 +1,44 @@
 package com.haulmont.testtask.model;
 
-public class Doctor {
-    private long id;
-    private String firstName;
-    private String lastName;
-    private String middleName;
+public class Doctor extends Entity {
+    private String lastname;
+    private String firstname;
+    private String middlename;
     private String spec;
 
-    public Doctor(long id) {
-        this.id = id;
+    public Doctor() {
     }
 
-    public Doctor(long id, String firstName, String lastName, String middleName, String spec) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
+    public Doctor(long id, String lastname, String firstname, String middlename, String spec) {
+        super(id);
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.middlename = middlename;
         this.spec = spec;
     }
 
-    public long getId() {
-        return id;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setMiddlename(String middleName) {
+        this.middlename = middleName;
     }
 
     public String getSpec() {

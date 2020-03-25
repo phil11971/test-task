@@ -1,54 +1,43 @@
 package com.haulmont.testtask.model;
 
-public class Patient {
-    private long id;
-    private String firstName;
-    private String lastName;
-    private String middleName;
+public class Patient extends Entity {
+    private String lastname;
+    private String firstname;
+    private String middlename;
     private String phone;
 
-    public Patient(long id) {
-        this.id = id;
-    }
+    public Patient(){}
 
-    public Patient(long id, String firstName, String lastName, String middleName, String phone) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
+    public Patient(long id, String lastname, String firstname, String middlename, String phone) {
+        super(id);
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.middlename = middlename;
         this.phone = phone;
     }
 
-    public long getId() {
-        return id;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
     public String getPhone() {

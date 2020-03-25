@@ -7,21 +7,18 @@ public class Recipe {
     private long patientId;
     private String desc;
     private Date creationDate;
-    private int validity;
+    private Date validityDate;
     private Priority priority;
 
-    public Recipe(long doctorId, long patientId) {
-        this.doctorId = doctorId;
-        this.patientId = patientId;
-    }
+    public Recipe() { }
 
-    public Recipe(long doctorId, long patientId, String desc, Date creationDate, int validity, String priority) {
+    public Recipe(long doctorId, long patientId, String desc, Date creationDate, Date validityDate, Priority priority) {
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.desc = desc;
         this.creationDate = creationDate;
-        this.validity = validity;
-        this.priority = Priority.valueOf(priority);
+        this.validityDate = validityDate;
+        this.priority = priority;
     }
 
     public long getDoctorId() {
@@ -56,25 +53,19 @@ public class Recipe {
         this.creationDate = creationDate;
     }
 
-    public int getValidity() {
-        return validity;
+    public Date getValidityDate() {
+        return validityDate;
     }
 
-    public void setValidity(int validity) {
-        this.validity = validity;
+    public void setValidityDate(Date validityDate) {
+        this.validityDate = validityDate;
     }
 
-    public String getPriority() {
-        return priority.name();
+    public Priority getPriority() {
+        return priority;
     }
 
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-}
-
-enum Priority{
-    Normal,
-    Cito,
-    Statim
 }
