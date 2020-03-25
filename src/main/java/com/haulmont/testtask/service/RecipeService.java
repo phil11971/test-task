@@ -2,10 +2,11 @@ package com.haulmont.testtask.service;
 
 import com.haulmont.testtask.db.abstraction.DaoManager;
 import com.haulmont.testtask.db.abstraction.dao.RecipeDao;
-import com.haulmont.testtask.db.implementation.hsql.HSQLDBDaoManager;
+import com.haulmont.testtask.db.implementation.hsqldb.HSQLDBDaoManager;
 import com.haulmont.testtask.exception.db.DaoException;
 import com.haulmont.testtask.exception.service.ServiceException;
 import com.haulmont.testtask.model.Recipe;
+import com.haulmont.testtask.model.RecipeExt;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -33,12 +34,45 @@ public class RecipeService {
         return instance;
     }
 
-    public List<Recipe> getAll() {
+    public List<RecipeExt> getAll() {
         try {
             return recipeDao.getAll();
         } catch (DaoException e) {
             logger.severe(e.getMessage());
             throw new ServiceException(e.getMessage());
         }
+    }
+
+    public boolean insertRecipe(Recipe recipe) {
+        try {
+            if (!recipeDao.existsRecord(recipe.getDoctorId(), recipe.getPatientId())){
+                recipeDao.insert(recipe);
+                return true;
+            }
+        } catch (DaoException e) {
+            logger.severe(e.getMessage());
+            throw new ServiceException(e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean deleteRecipe(Long doctorId, Long patientId) {
+        try {
+             recipeDao.delete(doctorId, patientId);
+        } catch (DaoException e) {
+            logger.severe(e.getMessage());
+            throw new ServiceException(e.getMessage());
+        }
+        return true;
+    }
+
+    public boolean updateRecipe(Recipe recipe) {
+        try {
+            recipeDao.update(recipe);
+        } catch (DaoException e) {
+            logger.severe(e.getMessage());
+            throw new ServiceException(e.getMessage());
+        }
+        return true;
     }
 }
