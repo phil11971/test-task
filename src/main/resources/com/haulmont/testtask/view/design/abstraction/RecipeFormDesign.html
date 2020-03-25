@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;GENERATE_GETTERS&quot;:false,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo&quot;}">
+  <meta name="vaadin-version" content="8.1.5">
+ </head>
+ <body>
+  <vaadin-vertical-layout style-name="crud-template" spacing="false" responsive height="354px" margin="false">
+   <vaadin-horizontal-layout style-name="top-bar" spacing="false" width-full height="50px">
+    <vaadin-horizontal-layout width="44.77%" :middle :expand>
+     <vaadin-text-field icon="fonticon://Vaadin-Icons/e805" style-name="small inline-icon search" placeholder="Search" width="349px" height="34px" _id="search" :middle></vaadin-text-field>
+     <vaadin-combo-box style-name="small" data-item-type="com.haulmont.testtask.view.design.implementation.Filter" _id="combobox" :middle :right></vaadin-combo-box>
+     <vaadin-button style-name="small" plain-text _id="apply" :middle :right :expand>
+       Apply 
+     </vaadin-button>
+    </vaadin-horizontal-layout>
+   </vaadin-horizontal-layout>
+   <vaadin-css-layout style-name="content" size-full :expand>
+    <vaadin-css-layout style-name="list" size-full>
+     <vaadin-grid caption="Recipes" width-full height="180px" data-item-type="com.haulmont.testtask.model.RecipeExt" _id="grid">
+      <table>
+       <colgroup>
+        <col column-id="doctorFio" sortable>
+        <col column-id="patientFio" sortable>
+       </colgroup>
+       <thead>
+        <tr default>
+         <th plain-text column-ids="doctorFio">DoctorFio</th>
+         <th plain-text column-ids="patientFio">PatientFio</th>
+        </tr>
+       </thead>
+       <tbody></tbody>
+      </table>
+     </vaadin-grid>
+     <vaadin-horizontal-layout style-name="buttons border-top" width-full height="44px">
+      <vaadin-button style-name="small" responsive plain-text _id="back" :middle :center>
+        Back 
+      </vaadin-button>
+      <vaadin-button style-name="small friendly" plain-text _id="add" :middle :right :expand>
+        Add recipe 
+      </vaadin-button>
+      <vaadin-button style-name="small primary" plain-text _id="update" :middle :center>
+        Update 
+      </vaadin-button>
+      <vaadin-button style-name="small danger" plain-text _id="delete" :middle :right>
+        Delete 
+      </vaadin-button>
+     </vaadin-horizontal-layout>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+  </vaadin-vertical-layout>
+ </body>
+</html>
