@@ -2,6 +2,7 @@ package com.haulmont.testtask.db.abstraction.dao;
 
 import com.haulmont.testtask.exception.db.DaoException;
 import com.haulmont.testtask.model.Doctor;
+import com.haulmont.testtask.model.DoctorStat;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface DoctorDao {
     void update(Doctor doctor) throws DaoException;
 
     List<Doctor> getAll() throws DaoException;
+
+    List<DoctorStat> getDoctorStats() throws DaoException;
 }
