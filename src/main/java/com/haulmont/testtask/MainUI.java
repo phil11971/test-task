@@ -1,6 +1,6 @@
 package com.haulmont.testtask;
 
-import com.haulmont.testtask.view.MenuForm;
+import com.haulmont.testtask.view.design.implementation.MenuForm;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
@@ -10,10 +10,9 @@ public class MainUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        MenuForm menuForm = new MenuForm(this);
         navigator = new Navigator(this, this);
-        navigator.addView("", menuForm);
+        navigator.addView("", MenuForm.class);
 
-        setContent(menuForm);
+        setContent(new MenuForm());
     }
 }
