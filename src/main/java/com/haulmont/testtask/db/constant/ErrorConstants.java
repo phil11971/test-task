@@ -1,6 +1,6 @@
-package com.haulmont.testtask.db.implementation.hsql.constant;
+package com.haulmont.testtask.db.constant;
 
-public class HSQLDBErrorConstants {
+public class ErrorConstants {
     public static final String
             SCRIPT_ERROR = "Script for db hasn't been found!",
             STATEMENT_ERROR = "Statement hasn't created!",
