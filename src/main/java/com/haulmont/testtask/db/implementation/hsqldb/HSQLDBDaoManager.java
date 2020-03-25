@@ -1,12 +1,12 @@
-package com.haulmont.testtask.db.implementation.hsql;
+package com.haulmont.testtask.db.implementation.hsqldb;
 
 import com.haulmont.testtask.db.abstraction.*;
 import com.haulmont.testtask.db.abstraction.dao.DoctorDao;
 import com.haulmont.testtask.db.abstraction.dao.PatientDao;
 import com.haulmont.testtask.db.abstraction.dao.RecipeDao;
-import com.haulmont.testtask.db.implementation.hsql.dao.HSQLDBDoctorDao;
-import com.haulmont.testtask.db.implementation.hsql.dao.HSQLDBPatientDao;
-import com.haulmont.testtask.db.implementation.hsql.dao.HSQLDBRecipeDao;
+import com.haulmont.testtask.db.implementation.hsqldb.dao.HSQLDBDoctorDao;
+import com.haulmont.testtask.db.implementation.hsqldb.dao.HSQLDBPatientDao;
+import com.haulmont.testtask.db.implementation.hsqldb.dao.HSQLDBRecipeDao;
 import com.haulmont.testtask.exception.db.DaoException;
 
 public class HSQLDBDaoManager implements DaoManager {
